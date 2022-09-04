@@ -8,6 +8,7 @@ import randomstring from 'randomstring';
 import {createUser,getUserByName,getUserByEmail,getUserById} from "./routes/helper.js";
 import { ObjectId } from "mongodb";
 
+
 // import {homeRouter }from "./routes/homeRouter.js"
 import {productRouter} from "./routes/Products.js"
 
@@ -19,7 +20,7 @@ const app = express();
 const PORT= process.env.PORT;
 app.use(express.json());
 app.use(cors());
-app.use(productRouter)
+app.use("/products",productRouter)
 
 
 
@@ -45,12 +46,12 @@ async function generateHashedPassword(password){
   // express.json() is a inbuilt middleware to convert data inside body to json format.
 
 
-app.get('/', function (req, res) {
-  res.send('Hello, Welcome to the APP')
-})
+// app.get('/', function (req, res) {
+//   res.send('Hello, Welcome to the APP')
+// })
 
 
-
+app.use("/products",productRouter)
 
 app.post('/signup',async function (request, response) {
     const {UserName,Email,Password}=request.body;
@@ -173,11 +174,7 @@ app.post('/verifyToken',async function (request, response) {
 
 app.put('/changePassword',async function (request, response) {
   const {Password,id}=request.body;
-  // const userFromDB = await getUserById(id);
-  // if(!userFromDB){
-  //   response.status(400).send({message:"Invalid Credential"});
-  // }
-  // else
+  
   try{ 
     // check password
     const hashedPassword=await generateHashedPassword(Password);
