@@ -2,6 +2,8 @@ import express from 'express';
 import { MongoClient } from 'mongodb';
 import dotenv from "dotenv";
 import cors from "cors";
+import jwt from "jsonwebtoken";
+
 import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
 import randomstring from 'randomstring';
@@ -83,12 +85,14 @@ app.post('/signup',async function (request, response) {
         const storedPassword = userFromDB.Password;
         const isPasswordMatch=await bcrypt.compare(Password,storedPassword);
         if(isPasswordMatch){
-          response.send({message:"successful login"});
+          const token =jwt.sign({id:userFromDB._id},process.env.SECRET_KEY);
+          response.send({message:"successful login",token:token});
           // localStorage.setItem("currentUser",UserName);
         }
         else{
           response.status(400).send({message:"Invalid Credential"});
         }
+       
       }
   })
   app.post('/forgetPassword',async function (request, response) {
@@ -109,12 +113,10 @@ app.post('/signup',async function (request, response) {
         let transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                // type: 'OAUTH2',
+               
                 user: process.env.MAIL_USERNAME,
                 pass: process.env.MAIL_PASSWORD,
-                // clientId: process.env.OAUTH_CLIENTID,
-                // clientSecret: process.env.OAUTH_CLIENT_SECRET,
-                // refreshToken: process.env.OAUTH_REFRESH_TOKEN
+                
             }
         });
         //Mail options

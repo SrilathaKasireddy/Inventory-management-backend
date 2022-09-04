@@ -29,32 +29,38 @@ export async function getUserByEmail(Email) {
   return await client.db("users").collection("users").findOne({Email: Email});
 }
 
+
+
+export async function createNewproducts(data) {
+    return await client
+    .db("products")
+    .collection("products").
+    insertMany([data]);
+}
+export async function updateproductById(id, data) {
+    return await client
+    .db("products")
+    .collection("products")
+    .updateOne({_id: ObjectId(id )}, { $set: data });
+}
+export async function deleteProductById(id) {
+    return await client.db("products")
+    .collection("products")
+    .deleteOne({_id: ObjectId(id ) });
+}
+export async function getproductById(id) {
+    return await client.db("products")
+    .collection("products")
+    .findOne({ _id: ObjectId(id )});
+}
 export async function getAllProducts(request) {
+    return await client.db("products")
+    .collection("products")
+    .find(request.query).toArray();
+}
+
+export async function searchproducts(request) {
   return await client.db("products")
   .collection("products")
   .find(request.query).toArray();
- }
- export async function getproductById(id) {
-  return await client.db("Products")
-  .collection("Products")
-  .findOne({ _id: ObjectId(id)});
 }
-
-//  export async function createNewproducts(data) {
-//   return await client
-//   .db("Products")
-//   .collection("Products").
-//   insertMany([data]);
-// }
-// export async function updateproductById(id, data) {
-//   return await client
-//   .db("Products")
-//   .collection("Products")
-//   .updateOne({_id: ObjectId(id )}, { $set: data });
-// }
-// export async function deleteproductById(id) {
-//   return await client.db("Products")
-//   .collection("Products")
-//   .deleteOne({_id: ObjectId(id ) });
-// }
-
