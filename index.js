@@ -48,9 +48,9 @@ async function generateHashedPassword(password){
   // express.json() is a inbuilt middleware to convert data inside body to json format.
 
 
-// app.get('/', function (req, res) {
-//   res.send('Hello, Welcome to the APP')
-// })
+app.get('/', function (req, res) {
+  res.send('Hello, Welcome 🎉')
+})
 
 
 app.use("/products",productRouter)
