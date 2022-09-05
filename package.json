@@ -23,6 +23,7 @@
     "randomstring": "^1.2.2"
   },
   "devDependencies": {
+    "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "nodemon": "^2.0.19"
   }
 }

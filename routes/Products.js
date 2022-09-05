@@ -1,7 +1,7 @@
 import express from "express";
 import { client } from "../index.js";
 import { getAllProducts, getproductById, 
-    deleteProductById, updateproductById, createNewproducts } from "./helper.js";
+    deleteProductById, updateproductById, createNewproducts } from "../routes/helper.js";
 import Auth from "../middleware/auth.js"
     const router =express.Router();
 
@@ -58,5 +58,5 @@ router.get('/'  , async function (request, response) {
     
     
 
-    export const productRouter=router;
+    export  const productRouter=router;
   
